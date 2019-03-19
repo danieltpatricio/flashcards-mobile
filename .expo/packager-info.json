@@ -1,0 +1,10 @@
+{
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 4004,
+  "expoServerNgrokUrl": "https://zb-xg9.anonymous.flashcards-mobile.exp.direct",
+  "packagerNgrokUrl": "https://packager.zb-xg9.anonymous.flashcards-mobile.exp.direct",
+  "ngrokPid": 4024,
+  "webpackServerPort": null
+}
