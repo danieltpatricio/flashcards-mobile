@@ -1,14 +1,23 @@
 import React from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { AppLoading, Asset, Font, Icon } from "expo";
-import AppNavigator from "./navigation/AppNavigator";
+import AppNavigator from "./components/navigation/AppNavigator";
 import { YellowBox } from "react-native";
 YellowBox.ignoreWarnings(["Remote debugger"]);
+import { Constants } from "expo";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import reducer from "./reducers";
+import { setLocalNotification } from "./utils/notify";
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false
   };
+
+  componentDidMount() {
+    setLocalNotification();
+  }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
@@ -21,10 +30,18 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <View style={styles.container}>
-          {Platform.OS === "ios" && <StatusBar barStyle="default" />}
-          <AppNavigator />
-        </View>
+        <Provider store={createStore(reducer)}>
+          <View style={styles.container}>
+            {Platform.OS === "ios" ? (
+              <StatusBar barStyle="default" backgroundColor="blue" />
+            ) : (
+              <View style={{ height: Constants.statusBarHeight }}>
+                <StatusBar translucent />
+              </View>
+            )}
+            <AppNavigator />
+          </View>
+        </Provider>
       );
     }
   }
