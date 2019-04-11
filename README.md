@@ -2,6 +2,11 @@
 
     The project consists of cards for people who want to train their memory, where they can view created cards and mark whether or not they remember the answer of the questions. This project was initially tested only on **IOS**
 
+## Suport
+
+    IOS: It was tested,
+    Android: Has not been tested
+
 ## Setup
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
@@ -24,7 +29,7 @@ If Yarn was installed when the project was initialized, then dependencies will h
 
 ### `npm install`
 
-Install dependency.
+install project dependencies.
 
 ```
 npm install
