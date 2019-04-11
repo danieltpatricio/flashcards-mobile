@@ -26,7 +26,7 @@ class ListDecks extends Component {
     title: "List Decks"
   };
   componentDidMount() {
-    getEntries().then(r => this.props.dispatch(receiveEntries(r)));
+    getEntries().then(entries => this.props.dispatch(receiveEntries(entries)));
   }
 
   _item = ({ item }) => (

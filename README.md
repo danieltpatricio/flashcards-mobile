@@ -11,6 +11,7 @@ Below you'll find information about performing common tasks. The most recent ver
 ## Table of Contents
 
 - [Available Scripts](#available-scripts)
+  - [npm install](#npm-install)
   - [npm start](#npm-start)
   - [npm test](#npm-test)
   - [npm run ios](#npm-run-ios)
@@ -20,6 +21,16 @@ Below you'll find information about performing common tasks. The most recent ver
 ## Available Scripts
 
 If Yarn was installed when the project was initialized, then dependencies will have been installed via Yarn, and you should probably use it to run these commands as well. Unlike dependency installation, command running syntax is identical for Yarn and NPM at the time of this writing.
+
+### `npm install`
+
+Install dependency.
+
+```
+npm install
+# or
+yarn install
+```
 
 ### `npm start`
 

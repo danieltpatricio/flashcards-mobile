@@ -3,23 +3,12 @@ import { Button, Text } from "react-native";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
 import ButtonHighLight from "../common/ButtonHighLight";
-import ProgressCircle from "react-native-progress-circle";
-
-import {
-  clearLocalNotification,
-  setLocalNotification
-} from "../../utils/notify";
+import FeedBack from "./FeedBack";
+import PropTypes from "prop-types";
 
 const QuizView = styled.View`
   display: flex;
   background-color: #fff;
-`;
-
-const FeedBackView = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  padding: 50px;
 `;
 
 const Content = styled.View`
@@ -43,38 +32,22 @@ const Title = styled.Text`
   font-size: 50px;
 `;
 
-const Correct = styled.Text`
-  padding-top: 10px;
-  font-size: 16px;
-  color: green;
-`;
-const Incorrect = styled.Text`
-  padding-top: 10px;
-  padding-bottom: 50px;
-  font-size: 16px;
-  color: red;
-`;
-const Number = styled.Text`
-  color: black;
-`;
-
-class DetailsDeck extends Component {
+class Quiz extends Component {
   state = {
     question: 0,
     showAnswer: false,
     correct: 0
   };
 
-  static navigationOptions = ({ navigation }) => ({
-    title: "Quiz"
-  });
+  handleResetQuiz = () =>
+    this.setState({
+      question: 0,
+      correct: 0
+    });
 
   render() {
     const { navigation, item } = this.props;
     const { question, showAnswer, correct } = this.state;
-    const percentage = correct * (100 / item.questions.length);
-    question > item.questions.length &&
-      clearLocalNotification().then(setLocalNotification);
     return question < item.questions.length ? (
       <QuizView>
         <NumberCard>
@@ -117,54 +90,29 @@ class DetailsDeck extends Component {
         </Content>
       </QuizView>
     ) : (
-      <FeedBackView>
-        <ProgressCircle
-          percent={percentage}
-          radius={100}
-          borderWidth={10}
-          color={parseInt(percentage) > 70 ? "green" : "red"}
-          shadowColor="#999"
-          bgColor="#fff"
-        >
-          <Title>{parseInt(percentage)}%</Title>
-        </ProgressCircle>
-        <Correct>
-          Correct:{" "}
-          <Number>
-            {correct} / {item.questions.length}
-          </Number>
-        </Correct>
-        <Incorrect>
-          Incorrect:{" "}
-          <Number>
-            {item.questions.length - correct} / {item.questions.length}
-          </Number>
-        </Incorrect>
-        <ButtonHighLight
-          title="Try Again"
-          color="black"
-          onPress={() =>
-            this.setState({
-              question: 0,
-              correct: 0
-            })
-          }
-        />
-        <ButtonHighLight
-          title="Back"
-          colorText="gray"
-          underlayColor="lightgray"
-          styled={{ border: "1px solid lightgray" }}
-          onPress={() => navigation.goBack()}
-        />
-      </FeedBackView>
+      <FeedBack
+        navigation={navigation}
+        length={item.questions.length}
+        correct={correct}
+        handleResetQuiz={this.handleResetQuiz}
+      />
     );
   }
 }
+
+Quiz.navigationOptions = ({ navigation }) => ({
+  title: "Quiz"
+});
+
+Quiz.propTypes = {
+  item: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired
+};
+
 function mapStateToProps(state, props) {
   return {
     item: state[props.navigation.getParam("key")]
   };
 }
 
-export default connect(mapStateToProps)(DetailsDeck);
+export default connect(mapStateToProps)(Quiz);

@@ -29,7 +29,7 @@ const Input = styled.TextInput`
 `;
 const Button = styled.Button``;
 
-class App extends Component {
+class AddDeck extends Component {
   state = {
     text: ""
   };
@@ -52,7 +52,6 @@ class App extends Component {
   }
 
   render() {
-    const { navigation } = this.props;
     const { text } = this.state;
     return (
       <NewDeckView behavior={"padding"}>
@@ -65,7 +64,7 @@ class App extends Component {
         <Button
           onPress={() => this.handleSubmit()}
           title="Submit"
-          // color=""
+          disabled={text.trim().length === 0}
           accessibilityLabel="Create a new Deck"
         />
       </NewDeckView>
@@ -73,4 +72,4 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+export default connect()(AddDeck);

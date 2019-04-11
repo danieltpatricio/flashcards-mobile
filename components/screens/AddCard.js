@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "react-native";
 import styled from "styled-components/native";
 import { connect } from "react-redux";
 import { submitEntry } from "../../utils/api/api";
@@ -19,9 +20,8 @@ const Input = styled.TextInput`
   align-items: center;
   border: 2px solid black;
 `;
-const Button = styled.Button``;
 
-class App extends Component {
+class AddCard extends Component {
   state = {
     question: "",
     answer: ""
@@ -61,16 +61,18 @@ class App extends Component {
         <Button
           onPress={() => this.handleSubmit()}
           title="Submit"
+          disabled={question.trim().length === 0 || answer.trim().length === 0}
           accessibilityLabel="Create a new Deck"
         />
       </NewDeckView>
     );
   }
 }
+
 function mapStateToProps(state, props) {
   return {
     item: state[props.navigation.getParam("key")]
   };
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(AddCard);
